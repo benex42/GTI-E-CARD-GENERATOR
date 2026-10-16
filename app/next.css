@@ -1,0 +1,2 @@
+/* Next.js owns the document shell; the existing GTI styles remain global. */
+html { scroll-behavior: smooth; }
