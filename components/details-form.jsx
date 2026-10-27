@@ -21,7 +21,7 @@ export default function DetailsForm() {
     <form className="setup-card" onSubmit={openStudio} noValidate>
       <div className="form-heading"><p>STEP 01</p><h2>Employee details</h2><span>Tell us which employee you are celebrating.</span></div>
       <div className="form-grid">
-        <label className="field full"><span>Card language</span><select value={details.language} onChange={(event) => changeLanguage(event.target.value)}><option value="en">English</option><option value="fr">Français</option><option value="pt">Português</option></select></label>
+        <label className="field full"><span>Cardnp,. language</span><select value={details.language} onChange={(event) => changeLanguage(event.target.value)}><option value="en">English</option><option value="fr">Français</option><option value="pt">Português</option></select></label>
         <label className="field full"><span>Subsidiary</span><select value={details.subsidiary} onChange={(event) => updateDetail('subsidiary', event.target.value)}><option value="">Select a subsidiary</option>{subsidiaries.map((subsidiary) => <option key={subsidiary.id} value={subsidiary.id}>{subsidiary.name}</option>)}</select></label>
         <label className="field"><span>First name</span><input required maxLength="30" value={details.firstName} onChange={(event) => updateDetail('firstName', event.target.value)} /></label>
         <label className="field"><span>Last name</span><input required maxLength="30" value={details.lastName} onChange={(event) => updateDetail('lastName', event.target.value)} /></label>

@@ -36,8 +36,52 @@
   max-width: 610px;
 }
 
-.theme-yellow .shape-a {
-  background: #f7d783;
+.theme-picker {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* The flyer offers a single light and dark treatment; subsidiary branding is
+   applied independently so it remains legible in either theme. */
+.template-card {
+  --role-color: var(--card-fg);
+}
+
+.theme-icon {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.theme-choice[data-theme="dark"] .theme-icon {
+  background: #171717;
+  color: #fff;
+}
+
+.template-card.theme-light {
+  --card-bg: #eeb42b;
+  --card-fg: #171717;
+  --card-muted: #514716;
+  --accent: #fff;
+  --profile-card-bg: #171717;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #e4aa34;
+  border: 0;
+}
+
+.template-card.theme-dark {
+  --card-bg: #171717;
+  --card-fg: #fff;
+  --card-muted: #d2d2ce;
+  --accent: #e4aa34;
+  --profile-card-bg: #e4aa34;
+  --profile-card-fg: #171717;
+  --profile-card-muted: #514716;
 }
 
 .header-logo {
@@ -373,12 +417,19 @@
 .template-card .card-texture {
   position: absolute;
   z-index: 0;
-  inset: 0;
-  opacity: .16;
-  background-image: radial-gradient(var(--card-fg) .7px, transparent .7px);
-  background-size: 7px 7px;
-  mask-image: linear-gradient(to bottom, #000, transparent 88%);
+  top: -2%;
+  left: -2%;
+  width: 48%;
+  height: 72%;
+  overflow: hidden;
 }
+
+.template-card .card-texture img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 
 .template-card .shape-a {
   width: 39%;
@@ -405,6 +456,12 @@
   max-height: 28px;
 }
 
+/* Give selected subsidiary marks a little more presence than the GTI master mark. */
+.template-card .card-logo.subsidiary-card-logo {
+  max-width: 150px;
+  max-height: 36px;
+}
+
 .template-card.theme-yellow .default-card-logo,
 .template-card.theme-white .default-card-logo {
   filter: brightness(0) saturate(100%);
@@ -413,11 +470,12 @@
 .template-card .subsidiary-logo-wrap {
   position: absolute;
   z-index: 3;
-  top: 6%;
-  right: 6%;
+  top: 7%;
+  left: 7%;
+  right: auto;
   display: flex;
-  width: clamp(94px, 18%, 128px);
-  height: clamp(34px, 7%, 48px);
+  width: clamp(130px, 26%, 180px);
+  height: clamp(50px, 10%, 68px);
   align-items: center;
   justify-content: center;
   padding: 0;
@@ -428,16 +486,6 @@
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-}
-
-/* Each transparent logo is used as a mask so its colour precisely follows the card theme. */
-.template-card.theme-yellow .subsidiary-logo-wrap img,
-.template-card.theme-white .subsidiary-logo-wrap img {
-  filter: brightness(0) saturate(100%);
-}
-
-.template-card.theme-black .subsidiary-logo-wrap img {
-  filter: brightness(0) saturate(100%) invert(68%) sepia(39%) saturate(981%) hue-rotate(3deg) brightness(96%) contrast(88%);
 }
 
 .template-card .subsidiary-wordmark {
@@ -478,10 +526,671 @@
   filter: none;
 }
 
+/* KA Technologies uses its own navy-led brand system whenever it is selected. */
+.template-card.brand-ka-technologies {
+  --role-color: #208ed1;
+  --card-bg: #edf6ff;
+  --card-fg: #062e65;
+  --card-muted: #3b5f88;
+  --accent: #208ed1;
+  --profile-card-bg: #062e65;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #79c9f5;
+  border-color: #c6dff2;
+  box-shadow: 0 24px 43px #062e6520;
+}
+
+.template-card.brand-ka-technologies .subsidiary-card-logo {
+  max-height: 38px;
+  filter: none;
+}
+
+.template-card.brand-ka-technologies h2 em {
+  color: #147dbc;
+}
+
+/* JOB Connectz uses the red and white from its official mark. */
+.template-card.brand-job-connectz {
+  --role-color: #e00000;
+  --card-bg: #fff1f1;
+  --card-fg: #910000;
+  --card-muted: #9e4a4a;
+  --accent: #e00000;
+  --profile-card-bg: #a80000;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #ffd0d0;
+  border-color: #f3c3c3;
+  box-shadow: 0 24px 43px #a8000020;
+}
+
+.template-card.brand-job-connectz .subsidiary-card-logo {
+  max-height: 38px;
+  filter: none;
+}
+
+.template-card.brand-job-connectz h2 em {
+  color: #d90000;
+}
+
+/* KATON pairs its deep blue wordmark with its signature cyan accent. */
+.template-card.brand-katon {
+  --role-color: #00afe5;
+  --card-bg: #edfaff;
+  --card-fg: #062761;
+  --card-muted: #3d6680;
+  --accent: #00afe5;
+  --profile-card-bg: #062761;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #62cef0;
+  border-color: #c4e9f5;
+  box-shadow: 0 24px 43px #06276120;
+}
+
+.template-card.brand-katon .subsidiary-card-logo {
+  filter: none;
+}
+
+.template-card.brand-katon h2 em {
+  color: #009fd5;
+}
+
+/* GTI Healthcare draws from the clinical blue and deep navy of its official logo. */
+.template-card.brand-gti-healthcare {
+  --role-color: #2da9dc;
+  --card-bg: #edf9fd;
+  --card-fg: #073259;
+  --card-muted: #426b82;
+  --accent: #2da9dc;
+  --profile-card-bg: #073259;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #88d4ef;
+  border-color: #c6eaf5;
+  box-shadow: 0 24px 43px #07325920;
+}
+
+.template-card.brand-gti-healthcare .subsidiary-card-logo {
+  max-height: 38px;
+  filter: none;
+}
+
+.template-card.brand-gti-healthcare h2 em {
+  color: #178fc2;
+}
+
+/* African Industrial Solutions uses the orange and charcoal of the AIS mark. */
+.template-card.brand-ais {
+  --role-color: #ff6300;
+  --card-bg: #fff3eb;
+  --card-fg: #1b1b1b;
+  --card-muted: #705244;
+  --accent: #ff6300;
+  --profile-card-bg: #1b1b1b;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #ff9a5b;
+  border-color: #f2d3c1;
+  box-shadow: 0 24px 43px #1b1b1b20;
+}
+
+.template-card.brand-ais .subsidiary-card-logo {
+  max-height: 42px;
+  filter: none;
+}
+
+.template-card.brand-ais h2 em {
+  color: #e95500;
+}
+
+/* Keep the selected light/dark treatment in charge of the flyer surface;
+   brand rules above only supply logo and role colours. */
+.template-card.theme-light {
+  --card-bg: #eeb42b;
+  --card-fg: #171717;
+  --card-muted: #514716;
+  --accent: #fff;
+  --profile-card-bg: #171717;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #e4aa34;
+  border: 0;
+  box-shadow: 0 24px 43px #302c1d25;
+}
+
+/* Preserve contrast for monochrome marks while keeping the five full-colour
+   subsidiary logos in their official colours. */
+.template-card.theme-light .card-logo {
+  filter: brightness(0) saturate(100%);
+}
+
+.template-card.theme-dark .card-logo,
+.template-card.theme-light.brand-ka-technologies .subsidiary-card-logo,
+.template-card.theme-light.brand-job-connectz .subsidiary-card-logo,
+.template-card.theme-light.brand-katon .subsidiary-card-logo,
+.template-card.theme-light.brand-gti-healthcare .subsidiary-card-logo,
+.template-card.theme-light.brand-ais .subsidiary-card-logo {
+  filter: none;
+}
+
+.template-card.theme-dark .default-card-logo {
+  filter: brightness(0) saturate(100%) invert(68%) sepia(39%) saturate(981%) hue-rotate(3deg) brightness(96%) contrast(88%);
+}
+
+.template-card.theme-light .subsidiary-logo-wrap img {
+  filter: brightness(0) saturate(100%);
+}
+
+.template-card.theme-dark .subsidiary-logo-wrap img {
+  filter: brightness(0) saturate(100%) invert(68%) sepia(39%) saturate(981%) hue-rotate(3deg) brightness(96%) contrast(88%);
+}
+
+.template-card.theme-dark {
+  --card-bg: #171717;
+  --card-fg: #fff;
+  --card-muted: #d2d2ce;
+  --accent: #e4aa34;
+  --profile-card-bg: #e4aa34;
+  --profile-card-fg: #171717;
+  --profile-card-muted: #514716;
+  border: 0;
+  box-shadow: 0 24px 43px #302c1d25;
+}
+
+/* Subsidiaries retain their own identity in both flyer themes. */
+.template-card.brand-subsidiary.theme-light {
+  --card-bg: #fffdfa;
+  --card-fg: #171717;
+  --card-muted: #65615a;
+  --accent: var(--role-color);
+  --profile-card-bg: #171717;
+  --profile-card-fg: #fff;
+  --profile-card-muted: var(--role-color);
+  border: 1px solid #ddd9d0;
+}
+
+.template-card.brand-subsidiary.theme-dark {
+  --accent: var(--role-color);
+  --profile-card-bg: #171717;
+  --profile-card-fg: #fff;
+  --profile-card-muted: var(--role-color);
+}
+
+.template-card.brand-ka-technologies.theme-light {
+  --card-bg: #edf6ff;
+  --card-fg: #062e65;
+  --card-muted: #3b5f88;
+  --accent: #208ed1;
+  --profile-card-bg: #062e65;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #79c9f5;
+  border-color: #c6dff2;
+}
+
+.template-card.brand-ka-technologies.theme-dark {
+  --card-muted: #b9d8ed;
+  --accent: #208ed1;
+  --profile-card-bg: #062e65;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #79c9f5;
+}
+
+.template-card.brand-katon.theme-light {
+  --card-bg: #edfaff;
+  --card-fg: #062761;
+  --card-muted: #3d6680;
+  --accent: #00afe5;
+  --profile-card-bg: #062761;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #62cef0;
+  border-color: #c4e9f5;
+}
+
+.template-card.brand-katon.theme-dark {
+  --card-muted: #bbdbe8;
+  --accent: #00afe5;
+  --profile-card-bg: #062761;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #62cef0;
+}
+
+.template-card.brand-ais.theme-light {
+  --card-bg: #fff3eb;
+  --card-fg: #1b1b1b;
+  --card-muted: #705244;
+  --accent: #ff6300;
+  --profile-card-bg: #1b1b1b;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #ff9a5b;
+  border-color: #f2d3c1;
+}
+
+.template-card.brand-ais.theme-dark {
+  --card-muted: #e7c6b4;
+  --accent: #ff6300;
+  --profile-card-bg: #1b1b1b;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #ff9a5b;
+}
+
+.template-card.brand-gti-healthcare.theme-light {
+  --card-bg: #edf9fd;
+  --card-fg: #073259;
+  --card-muted: #426b82;
+  --accent: #2da9dc;
+  --profile-card-bg: #073259;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #88d4ef;
+  border-color: #c6eaf5;
+}
+
+.template-card.brand-gti-healthcare.theme-dark {
+  --card-muted: #bfdfec;
+  --accent: #2da9dc;
+  --profile-card-bg: #073259;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #88d4ef;
+}
+
+/* GTI Properties uses the warm orange and white from its architectural mark. */
+.template-card.brand-gti-properties.theme-light {
+  --role-color: #ffa126;
+  --card-bg: #fff7ea;
+  --card-fg: #552b05;
+  --card-muted: #81501f;
+  --accent: #ffa126;
+  --profile-card-bg: #f28a12;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #fff4dd;
+  border-color: #f5d5aa;
+  box-shadow: 0 24px 43px #b95c0822;
+}
+
+.template-card.brand-gti-properties.theme-dark {
+  --role-color: #ffa126;
+  --card-bg: #b95c08;
+  --card-fg: #fff;
+  --card-muted: #fff0db;
+  --accent: #fff;
+  --profile-card-bg: #fff;
+  --profile-card-fg: #9e4c06;
+  --profile-card-muted: #d76f0b;
+  box-shadow: 0 24px 43px #7c390c36;
+}
+
+/* GTI Natural Resources uses the forest green and sunburst orange in its mark. */
+.template-card.brand-gnrl.theme-light {
+  --role-color: #1f4d28;
+  --card-bg: #f4f8ef;
+  --card-fg: #1f4d28;
+  --card-muted: #526f52;
+  --accent: #f56725;
+  --profile-card-bg: #1f4d28;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #f9a475;
+  border-color: #cfe0ca;
+  box-shadow: 0 24px 43px #1f4d2820;
+}
+
+.template-card.brand-gnrl.theme-dark {
+  --role-color: #f56725;
+  --card-bg: #1f4d28;
+  --card-fg: #fff;
+  --card-muted: #d6e5d2;
+  --accent: #f56725;
+  --profile-card-bg: #fff;
+  --profile-card-fg: #1f4d28;
+  --profile-card-muted: #d96a35;
+  box-shadow: 0 24px 43px #16371d3b;
+}
+
+/* GTI Switch carries the black and gold of its paired-switch symbol. */
+.template-card.brand-gti-switch.theme-light {
+  --role-color: #efb640;
+  --card-bg: #fffaf0;
+  --card-fg: #171717;
+  --card-muted: #645a46;
+  --accent: #efb640;
+  --profile-card-bg: #171717;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #efb640;
+  border-color: #ecd8a5;
+  box-shadow: 0 24px 43px #7d642120;
+}
+
+.template-card.brand-gti-switch.theme-dark {
+  --role-color: #efb640;
+  --card-bg: #171717;
+  --card-fg: #fff;
+  --card-muted: #ded7c7;
+  --accent: #efb640;
+  --profile-card-bg: #efb640;
+  --profile-card-fg: #171717;
+  --profile-card-muted: #765715;
+  box-shadow: 0 24px 43px #0000003b;
+}
+
+/* Passmall is built around its retail orange and black wordmark. */
+.template-card.brand-passmall.theme-light {
+  --role-color: #ff8500;
+  --card-bg: #fff6ed;
+  --card-fg: #171717;
+  --card-muted: #76533a;
+  --accent: #ff8500;
+  --profile-card-bg: #171717;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #ffb568;
+  border-color: #f5d2ae;
+  box-shadow: 0 24px 43px #c95b0020;
+}
+
+.template-card.brand-passmall.theme-dark {
+  --role-color: #ff8500;
+  --card-bg: #171717;
+  --card-fg: #fff;
+  --card-muted: #e9d7c4;
+  --accent: #ff8500;
+  --profile-card-bg: #ff8500;
+  --profile-card-fg: #171717;
+  --profile-card-muted: #7b3500;
+  box-shadow: 0 24px 43px #0000003b;
+}
+
+/* PASS Industries takes its yellow shield, black lettering, and red descriptor. */
+.template-card.brand-pass.theme-light {
+  --role-color: #bf160c;
+  --card-bg: #fff9e9;
+  --card-fg: #171717;
+  --card-muted: #6f5a2b;
+  --accent: #ffc329;
+  --profile-card-bg: #171717;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #ffc329;
+  border-color: #efdaa0;
+  box-shadow: 0 24px 43px #7d642120;
+}
+
+.template-card.brand-pass.theme-dark {
+  --role-color: #ffc329;
+  --card-bg: #171717;
+  --card-fg: #fff;
+  --card-muted: #e8dfc8;
+  --accent: #ffc329;
+  --profile-card-bg: #ffc329;
+  --profile-card-fg: #171717;
+  --profile-card-muted: #7e5b00;
+  box-shadow: 0 24px 43px #0000003b;
+}
+
+/* GT Invest combines its navy financial mark with a warm bronze. */
+.template-card.brand-gt-invest.theme-light {
+  --role-color: #bd7d34;
+  --card-bg: #f8f5ed;
+  --card-fg: #07375a;
+  --card-muted: #4d6473;
+  --accent: #bd7d34;
+  --profile-card-bg: #07375a;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #dfb278;
+  border-color: #d8cfbd;
+  box-shadow: 0 24px 43px #07375a20;
+}
+
+.template-card.brand-gt-invest.theme-dark {
+  --role-color: #bd7d34;
+  --card-bg: #07375a;
+  --card-fg: #fff;
+  --card-muted: #cedae0;
+  --accent: #bd7d34;
+  --profile-card-bg: #bd7d34;
+  --profile-card-fg: #07375a;
+  --profile-card-muted: #68400e;
+  box-shadow: 0 24px 43px #021c303b;
+}
+
+/* GTI Telecom uses the violet wordmark and magenta signal arcs. */
+.template-card.brand-gti-telecom.theme-light {
+  --role-color: #4b0b78;
+  --card-bg: #faf1fb;
+  --card-fg: #4b0b78;
+  --card-muted: #76508b;
+  --accent: #e6007e;
+  --profile-card-bg: #4b0b78;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #f1a3cf;
+  border-color: #e8cde8;
+  box-shadow: 0 24px 43px #4b0b7820;
+}
+
+.template-card.brand-gti-telecom.theme-dark {
+  --role-color: #e6007e;
+  --card-bg: #4b0b78;
+  --card-fg: #fff;
+  --card-muted: #e9d3ef;
+  --accent: #e6007e;
+  --profile-card-bg: #e6007e;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #7d0045;
+  box-shadow: 0 24px 43px #26043f3b;
+}
+
+/* GTI Bank takes its confident red from the supplied wordmark. */
+.template-card.brand-gti-bank.theme-light {
+  --role-color: #d5231d;
+  --card-bg: #fff2f0;
+  --card-fg: #971a16;
+  --card-muted: #94514e;
+  --accent: #d5231d;
+  --profile-card-bg: #d5231d;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #ffd4cf;
+  border-color: #f1c8c3;
+  box-shadow: 0 24px 43px #971a1620;
+}
+
+.template-card.brand-gti-bank.theme-dark {
+  --role-color: #d5231d;
+  --card-bg: #ad1f19;
+  --card-fg: #fff;
+  --card-muted: #ffe1dd;
+  --accent: #fff;
+  --profile-card-bg: #fff;
+  --profile-card-fg: #ad1f19;
+  --profile-card-muted: #c73731;
+  box-shadow: 0 24px 43px #71130f3b;
+}
+
+/* GTI Foundation draws from the optimistic gold in its community symbol. */
+.template-card.brand-gti-foundation.theme-light {
+  --role-color: #dea00d;
+  --card-bg: #fff9e8;
+  --card-fg: #8d5c00;
+  --card-muted: #84652a;
+  --accent: #dea00d;
+  --profile-card-bg: #8d5c00;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #f3ca5e;
+  border-color: #f0d99e;
+  box-shadow: 0 24px 43px #8d5c0020;
+}
+
+.template-card.brand-gti-foundation.theme-dark {
+  --role-color: #dea00d;
+  --card-bg: #8d5c00;
+  --card-fg: #fff;
+  --card-muted: #fff0c9;
+  --accent: #f4c640;
+  --profile-card-bg: #f4c640;
+  --profile-card-fg: #704800;
+  --profile-card-muted: #765000;
+  box-shadow: 0 24px 43px #5033003b;
+}
+
+/* SAO Pay follows the GTI Holding yellow-and-black treatment. */
+.template-card.brand-sao-pay.theme-light {
+  --role-color: #e4aa34;
+  --card-bg: #eeb42b;
+  --card-fg: #171717;
+  --card-muted: #514716;
+  --accent: #fff;
+  --profile-card-bg: #171717;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #e4aa34;
+  border: 0;
+  box-shadow: 0 24px 43px #302c1d25;
+}
+
+.template-card.brand-sao-pay.theme-dark {
+  --role-color: #e4aa34;
+  --card-bg: #171717;
+  --card-fg: #fff;
+  --card-muted: #d2d2ce;
+  --accent: #e4aa34;
+  --profile-card-bg: #e4aa34;
+  --profile-card-fg: #171717;
+  --profile-card-muted: #514716;
+  border: 0;
+  box-shadow: 0 24px 43px #302c1d25;
+}
+
+.template-card.brand-job-connectz.theme-light {
+  --card-bg: #fff1f1;
+  --card-fg: #910000;
+  --card-muted: #9e4a4a;
+  --accent: #e00000;
+  --profile-card-bg: #a80000;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #ffd0d0;
+  border-color: #f3c3c3;
+}
+
+.template-card.brand-job-connectz.theme-dark {
+  --card-muted: #f0c5c5;
+  --accent: #e00000;
+  --profile-card-bg: #a80000;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #ffd0d0;
+}
+
+/* Africano Electro uses its signature deep-indigo field and white mark. */
+.template-card.brand-ael.theme-light {
+  --card-bg: #f0eff9;
+  --card-fg: #211c55;
+  --card-muted: #504b7a;
+  --accent: #211c55;
+  --profile-card-bg: #211c55;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #fff;
+  border-color: #d4d1ec;
+}
+
+.template-card.brand-ael.theme-dark {
+  --card-bg: #211c55;
+  --card-fg: #fff;
+  --card-muted: #d8d6ed;
+  --accent: #fff;
+  --profile-card-bg: #17143e;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #fff;
+}
+
+/* Gold Coast Pioneer Construction retains the black-and-gold in its official mark. */
+.template-card.brand-gcpcl.theme-light {
+  --card-bg: #fffaf0;
+  --card-fg: #111;
+  --card-muted: #5f5138;
+  --accent: #bd963c;
+  --profile-card-bg: #111;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #bd963c;
+  border-color: #eadbb9;
+}
+
+.template-card.brand-gcpcl.theme-dark {
+  --card-muted: #ded2b9;
+  --accent: #bd963c;
+  --profile-card-bg: #111;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #bd963c;
+}
+
+.template-card.brand-subsidiary.theme-dark .subsidiary-logo-wrap img {
+  filter: brightness(0) saturate(100%) invert(100%);
+}
+
+.template-card.brand-ka-technologies .subsidiary-logo-wrap img,
+.template-card.brand-katon .subsidiary-logo-wrap img,
+.template-card.brand-ais .subsidiary-logo-wrap img,
+.template-card.brand-gti-healthcare .subsidiary-logo-wrap img,
+.template-card.brand-job-connectz .subsidiary-logo-wrap img,
+.template-card.brand-ael.theme-dark .subsidiary-logo-wrap img,
+.template-card.brand-gcpcl .subsidiary-logo-wrap img {
+  filter: none;
+}
+
+.template-card.brand-gti-properties .subsidiary-logo-wrap img {
+  filter: none;
+}
+
+.template-card.brand-gnrl .subsidiary-logo-wrap img {
+  filter: none;
+}
+
+.template-card.brand-gti-switch .subsidiary-logo-wrap img,
+.template-card.brand-passmall .subsidiary-logo-wrap img,
+.template-card.brand-pass .subsidiary-logo-wrap img,
+.template-card.brand-gt-invest .subsidiary-logo-wrap img,
+.template-card.brand-gti-telecom .subsidiary-logo-wrap img,
+.template-card.brand-gti-bank .subsidiary-logo-wrap img,
+.template-card.brand-gti-foundation .subsidiary-logo-wrap img {
+  filter: none;
+}
+
+.template-card.brand-sao-pay .subsidiary-logo-wrap img {
+  filter: none;
+}
+
+.template-card.brand-sao-pay.theme-dark .subsidiary-logo-wrap img {
+  filter: brightness(0) saturate(100%) invert(68%) sepia(39%) saturate(981%) hue-rotate(3deg) brightness(96%) contrast(88%);
+}
+
+/* These supplied marks have more internal whitespace than the other logos. */
+.template-card.brand-gti-switch .subsidiary-logo-wrap,
+.template-card.brand-passmall .subsidiary-logo-wrap,
+.template-card.brand-pass .subsidiary-logo-wrap,
+.template-card.brand-gt-invest .subsidiary-logo-wrap,
+.template-card.brand-gti-foundation .subsidiary-logo-wrap {
+  top: 6%;
+  width: clamp(150px, 30%, 210px);
+  height: clamp(60px, 14%, 88px);
+}
+
+.template-card.brand-gti-switch .card-copy,
+.template-card.brand-passmall .card-copy,
+.template-card.brand-pass .card-copy,
+.template-card.brand-gt-invest .card-copy,
+.template-card.brand-gti-foundation .card-copy {
+  top: 23%;
+}
+
+.template-card.brand-ael.theme-light .subsidiary-logo-wrap img {
+  filter: brightness(0) saturate(100%) invert(13%) sepia(45%) saturate(2090%) hue-rotate(224deg) brightness(86%) contrast(96%);
+}
+
 .template-card .card-copy {
   top: 21%;
-  left: 7%;
+  left: var(--content-inset, 7%);
   width: 46%;
+}
+
+/* Keep every brand mark on the exact same content grid as the card copy. */
+.template-card .card-logo-wrap,
+.template-card .subsidiary-logo-wrap {
+  left: var(--content-inset, 7%);
+}
+
+.template-card .subsidiary-logo-wrap {
+  justify-content: flex-start;
+}
+
+.template-card .subsidiary-logo-wrap img {
+  object-position: left center;
 }
 
 /* Reserve the exact space occupied by an uploaded picture, plus a small gap. */
@@ -697,14 +1406,21 @@
 }
 
 .template-card .photo-frame {
-  /* The uploaded picture shares the main content row with the heading. */
+  /* A compact profile card keeps the portrait and recipient identity together. */
   width: var(--photo-size, 47%);
   height: auto;
   aspect-ratio: .75 / 1;
-  top: 23%;
+  top: 17%;
   right: 4%;
   border-radius: var(--card-radius);
-  background: var(--card-bg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 0;
+  background: var(--profile-card-bg, #171717);
+  color: var(--profile-card-fg, #fff);
+  box-shadow: 0 14px 28px #00000024;
+  z-index: 3;
 }
 
 .template-card .photo-frame.round {
@@ -716,14 +1432,113 @@
 }
 
 .template-card .photo-frame::after {
-  top: 0;
-  right: -1px;
-  bottom: -1px;
-  left: -1px;
-  height: auto;
-  /* Extend beyond the image edge and become opaque before the lower border.
-     This prevents an exported photo from leaving a horizontal join line. */
-  background: linear-gradient(to bottom, transparent 10%, var(--card-bg) 80%, var(--card-bg) 100%);
+  display: none;
+}
+
+.template-card .photo-image-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  background: #d8d4cb;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.template-card .photo-frame.is-dragging .photo-image-wrap { cursor: grabbing; }
+
+.template-card .photo-image-wrap img {
+  position: relative;
+  inset: auto;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: center;
+}
+
+.template-card .position-top .photo-image-wrap img { object-position: center top; }
+
+.template-card .profile-card-details {
+  flex: 0 0 22%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 7px 10px 8px;
+  background: var(--profile-card-bg, #171717);
+  color: var(--profile-card-fg, #fff);
+  text-align: left;
+}
+
+.template-card .profile-card-details p,
+.template-card .profile-card-details span {
+  overflow: hidden;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.template-card .profile-name-row {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  min-width: 0;
+}
+
+.template-card .profile-card-details.identity-left .profile-name-row { justify-content: flex-start; }
+.template-card .profile-card-details.identity-center .profile-name-row { justify-content: center; }
+.template-card .profile-card-details.identity-right .profile-name-row { justify-content: flex-end; }
+
+.template-card .profile-card-details .profile-last-name {
+  min-width: 0;
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -.06em;
+  line-height: .9;
+}
+
+.template-card .profile-card-details .profile-first-name {
+  min-width: 0;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  letter-spacing: .06em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.template-card .profile-card-details span {
+  /* The role follows the selected subsidiary's primary colour. */
+  color: var(--role-color);
+  font-size: clamp(4px, .55vw, 6px);
+  font-weight: 700;
+  letter-spacing: .09em;
+}
+
+.photo-drag-hint {
+  margin: 0 0 10px;
+  color: #89857d;
+  font-size: 9px;
+  line-height: 1.35;
+}
+
+.app.dark-mode .photo-drag-hint { color: var(--soft-ink); }
+
+/* The profile card deliberately contrasts with the selected e-card theme. */
+.template-card.theme-yellow {
+  --profile-card-bg: #171717;
+  --profile-card-fg: #fff;
+  --profile-card-muted: #e4aa34;
+}
+
+.template-card.theme-black,
+.template-card.theme-white {
+  --profile-card-bg: #e4aa34;
+  --profile-card-fg: #171717;
+  --profile-card-muted: #514716;
 }
 
 .template-card .wave-lines {
@@ -758,11 +1573,12 @@
 
 .template-card .person-name {
   margin: 0;
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: clamp(28px, 5.2vw, 58px);
-  font-style: italic;
-  font-weight: 600;
-  letter-spacing: -.06em;
+  color: var(--card-muted);
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  letter-spacing: .18em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .template-card .identity-name-row {
@@ -777,16 +1593,16 @@
 
 .template-card .person-surname {
   margin: 0;
-  color: var(--card-muted);
-  font-family: "DM Sans", sans-serif;
-  font-weight: 400;
-  letter-spacing: .18em;
-  line-height: 1;
-  text-transform: uppercase;
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -.06em;
+  line-height: .9;
 }
 
 .template-card .team-name {
   margin-top: 7px;
+  color: var(--role-color);
   font-size: 8px;
   letter-spacing: .16em;
   font-weight: 750;
@@ -831,7 +1647,8 @@
 .template-card .balloon-one { left: 9%; bottom: 32%; }
 .template-card .balloon-two { right: 12%; top: 10%; width: 7%; }
 
-.template-card.align-center .card-copy { left: 5%; width: 51%; }
+.template-card.align-center { --content-inset: 5%; }
+.template-card.align-center .card-copy { left: var(--content-inset); width: 51%; }
 
 /* Keep every workspace surface and control coherent in dark mode.
    These rules live after the layout-specific panel styles so they win the cascade. */
@@ -914,8 +1731,8 @@
 @media (max-width: 470px) {
   .template-card { --card-radius: 9px; }
   .template-card .card-copy { top: 20%; width: 45%; }
-  .template-card .photo-frame { width: var(--photo-size, 47%); height: auto; top: 23%; right: 4%; }
-  .template-card .subsidiary-logo-wrap { right: 5%; }
+  .template-card .photo-frame { width: var(--photo-size, 47%); height: auto; top: 17%; right: 4%; }
+  .template-card .subsidiary-logo-wrap { left: var(--content-inset, 7%); }
   .template-card .wave-lines { bottom: 4%; }
   .template-card .card-footer { font-size: 4px; }
 }
